@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
 <html lang="ko"><head>
+<meta name="during-admin-clause-fix-version" content="V4">
+<meta name="during-access-fix-version" content="2026-09-07_ACCESS_SEARCH_V3">
 <script id="duringHardcodedDbV1">
 (function(){
   try{
@@ -1957,6 +1959,49 @@ body.dark #trainingStdGuide.training-refreshed{color:#86efac}
 .std-switch-btn.active{background:#1d4ed8;color:#fff;box-shadow:0 1px 2px rgba(15,23,42,.18)}
 </style>
 
+
+<style id="duringAccessSearchFixV2Style">
+#homeRequirementSearchResults .req-search-hit{border:1px solid #dbe4f0;border-radius:10px;background:#fff;padding:11px 13px}
+#homeRequirementSearchResults .req-search-hit-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
+#homeRequirementSearchResults .req-search-standard{display:inline-block;padding:3px 7px;border-radius:999px;background:#e8f1ff;color:#1d4ed8;font-size:11px;font-weight:900}
+#homeRequirementSearchResults .req-search-clause{font-weight:900;color:#0f172a;margin-left:6px}
+#homeRequirementSearchResults .req-search-title{margin-top:6px;font-weight:800;color:#1e293b}
+#homeRequirementSearchResults .req-search-requirement{margin-top:7px;color:#475569;line-height:1.55;white-space:pre-wrap;font-size:12px}
+#homeRequirementSearchResults .req-search-score{font-size:11px;color:#64748b}
+body.dark #homeRequirementSearchResults .req-search-hit{background:#111827!important;border-color:#334155!important}
+body.dark #homeRequirementSearchResults .req-search-title,body.dark #homeRequirementSearchResults .req-search-clause{color:#f8fafc!important}
+body.dark #homeRequirementSearchResults .req-search-requirement{color:#cbd5e1!important}
+.general-finding-note{margin:8px 0 12px;padding:9px 11px;border:1px solid #bbf7d0;background:#f0fdf4;color:#166534;border-radius:8px;font-size:12px;line-height:1.55}
+</style>
+
+
+<style id="adminLoginHardFixStyle">
+#authOverlay{
+  position:fixed!important;
+  inset:0!important;
+  z-index:999999!important;
+  background:rgba(15,23,42,.55)!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+#authOverlay.hidden-auth{display:none!important}
+#authOverlay:not(.hidden-auth){display:flex!important}
+#authOverlay .dialog{position:relative!important;z-index:1000000!important}
+</style>
+
+
+<style id="globalAdminLoginV4Style">
+.global-admin-overlay{
+  position:fixed!important;inset:0!important;z-index:2147483647!important;
+  background:rgba(15,23,42,.62)!important;align-items:center!important;justify-content:center!important;padding:20px!important;
+}
+.global-admin-overlay.open{display:flex!important}
+.global-admin-card{width:min(430px,94vw);background:#fff;border-radius:16px;padding:28px;box-shadow:0 24px 80px rgba(0,0,0,.35);color:#172033}
+.global-admin-card h2{margin:0 0 8px}.global-admin-card p{color:#64748b;line-height:1.55}
+.global-admin-card input{width:100%;padding:12px;border:1px solid #dbe4f0;border-radius:9px;font-size:16px}
+.global-admin-error{min-height:22px;color:#dc2626;margin-top:8px;font-size:13px}
+</style>
+
 </head><body>
 <div id="localJsonImportBar">
   <div class="local-json-title">VDA 로컬 JSON DB</div>
@@ -2025,6 +2070,36 @@ body.dark #trainingStdGuide.training-refreshed{color:#86efac}
 <div class="home-kpi"><span>심사 대상 부서</span><b id="homeDeptCount">0</b><small>계획서 기준</small></div>
 <div class="home-kpi"><span>연결 프로세스</span><b id="homeProcessCount">0</b><small>계획서 기준</small></div>
 </div>
+
+
+<section class="home-card" id="homeRequirementSearchCard" style="margin:12px 0 14px">
+  <div class="home-card-head">
+    <div>
+      <small>QUICK REQUIREMENT CHECK</small>
+      <h2>지적사항 사전검색 · 요구사항 확인</h2>
+    </div>
+    <span class="viewer-chip">일반사용자 이용 가능</span>
+  </div>
+  <p class="home-note">
+    현장에서 발견한 문제 또는 의문을 문장으로 입력한 뒤 검색 기준을 선택하세요.
+    예: “비상계획에 대한 기준이 수립되어 있지 않다”, “교정 유효기간이 지난 계측기를 사용 중이다”.
+  </p>
+  <div style="display:flex;gap:8px;align-items:stretch;flex-wrap:wrap">
+    <textarea id="homeRequirementSearchInput"
+      style="flex:1;min-width:360px;min-height:74px;border:1px solid #cbd5e1;border-radius:9px;padding:10px;font:inherit;resize:vertical"
+      placeholder="확인하고 싶은 문제 또는 현장 상황을 입력하세요."></textarea>
+    <div style="display:flex;flex-direction:column;gap:7px;min-width:180px">
+      <button class="btn primary" id="homeRequirementSearchVdaBtn" type="button">VDA 6.3 조항 검색</button>
+      <button class="btn" id="homeRequirementSearchIatfBtn" type="button">IATF 16949 조항 검색</button>
+      <button class="btn" id="homeRequirementSearchClearBtn" type="button">초기화</button>
+    </div>
+  </div>
+  <div id="homeRequirementSearchSummary"
+    style="display:none;margin-top:12px;padding:11px 13px;border-radius:9px;background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;font-size:13px;line-height:1.6"></div>
+  <div id="homeRequirementSearchResults" style="display:grid;gap:8px;margin-top:10px"></div>
+</section>
+
+
 <div class="home-main-grid auditor-home-grid">
 <section class="home-card home-start">
 <div class="home-card-head"><div><small>QUICK START</small><h2>심사 기준 선택</h2></div></div>
@@ -2634,7 +2709,7 @@ function renderAuditPlan(){
 
     body.appendChild(tr);
 
-    if(isAdmin){
+    {
       tr.querySelectorAll('[data-k]').forEach(el=>{
         const save=()=>{
           r[el.dataset.k]=el.value;
@@ -3440,7 +3515,6 @@ function wireAuditMappingButtons(f,std,c,tr){
 }
 
 function addAuditFinding(){
-  if(!requireAdmin())return;
   const std=selectedAuditStd();
   const auditModal=document.getElementById('internalAuditModal')||document.getElementById('auditManagerModal');
   if(auditModal)auditModal.classList.toggle('audit-hide-process',std==='VDA');
@@ -3525,7 +3599,7 @@ function renderAuditClosure(){
   body.innerHTML='';
 
   rows.forEach((f,i)=>{
-    const c=closureMeta(f),ro=isAdmin?'':'disabled',tr=document.createElement('tr');
+    const c=closureMeta(f),ro='',tr=document.createElement('tr');
     tr.dataset.auditFindingId=f.id;
 
     const processCell = std==='IATF'
@@ -3550,21 +3624,12 @@ function renderAuditClosure(){
         <select class="audit-clause" ${ro}>${auditClauseSelectHtml(f,std)}</select>
         <div class="audit-map-result-wrap">${auditMapResultHtml(f,std)}</div>
       </td>
-      <td>${isAdmin
-        ? `<textarea class="audit-nc-text" placeholder="부적합 기술을 입력해 주세요.">${escapeHtml(f.text||'')}</textarea>`
-        : `<div style="white-space:pre-wrap;min-width:270px">${escapeHtml(f.text||'')}</div>`}
-      </td>
-      <td>${isAdmin
-        ? `<textarea class="audit-evidence-textarea" data-k="objectiveEvidence" placeholder="문서명, 기록, 측정값, 인터뷰, 현장 확인사항 등 객관적 증거를 입력해 주세요.">${escapeHtml(c.objectiveEvidence||'')}</textarea>`
-        : `<div style="white-space:pre-wrap;min-width:230px">${escapeHtml(c.objectiveEvidence||'')}</div>`}
-      </td>
+      <td><textarea class="audit-nc-text" placeholder="부적합 기술을 입력해 주세요.">${escapeHtml(f.text||'')}</textarea></td>
+      <td><textarea class="audit-evidence-textarea" data-k="objectiveEvidence" placeholder="문서명, 기록, 측정값, 인터뷰, 현장 확인사항 등 객관적 증거를 입력해 주세요.">${escapeHtml(c.objectiveEvidence||'')}</textarea></td>
       ${severityCell}
       <td><input data-k="owner" value="${escapeHtml(c.owner||'')}" ${ro}></td>
       <td><input type="date" class="audit-schedule" value="${escapeHtml(f.schedule||'')}" ${ro}></td>
-      <td>${isAdmin
-        ? `<textarea class="audit-corrective">${escapeHtml(f.correctiveAction||'')}</textarea>`
-        : `<div style="white-space:pre-wrap;min-width:220px">${escapeHtml(f.correctiveAction||'')}</div>`}
-      </td>
+      <td><textarea class="audit-corrective" placeholder="개선대책">${escapeHtml(f.correctiveAction||'')}</textarea></td>
       <td><textarea data-k="effectiveness" ${ro}>${escapeHtml(c.effectiveness||'')}</textarea></td>
       <td><select data-k="status" ${ro}>
         <option value="Open" ${c.status==='Open'?'selected':''}>Open</option>
@@ -4364,15 +4429,40 @@ function requireAdmin(){
   openAdminLogin();showToast('관리자 로그인 후 수정할 수 있습니다.');return false;
 }
 function openAdminLogin(){
-  document.getElementById('authOverlay').classList.remove('hidden-auth');
-  document.getElementById('authError').textContent='';
-  setTimeout(()=>document.getElementById('adminPassword').focus(),0);
+  const overlay=document.getElementById('authOverlay');
+  const error=document.getElementById('authError');
+  const input=document.getElementById('adminPassword');
+  if(!overlay){alert('관리자 로그인 창을 찾지 못했습니다.');return;}
+  overlay.classList.remove('hidden-auth');
+  overlay.style.display='flex';
+  if(error)error.textContent='';
+  if(input){input.value='';setTimeout(()=>input.focus(),0);}
 }
-function closeAdminLogin(){document.getElementById('authOverlay').classList.add('hidden-auth');document.getElementById('adminPassword').value=''}
+function closeAdminLogin(){
+  const overlay=document.getElementById('authOverlay');
+  const input=document.getElementById('adminPassword');
+  if(overlay){overlay.classList.add('hidden-auth');overlay.style.display='none';}
+  if(input)input.value='';
+}
 function loginAdmin(){
-  const input=document.getElementById('adminPassword'),error=document.getElementById('authError');
-  if(input.value===ADMIN_PASSWORD){isAdmin=true;sessionStorage.setItem(AUTH_SESSION_KEY,'1');error.textContent='';input.value='';closeAdminLogin();updateAccessUI();renderMenu(document.getElementById('search').value);renderDetail();showToast('관리자 편집 모드로 전환했습니다.');}
-  else{error.textContent='비밀번호가 일치하지 않습니다.';input.select();}
+  const input=document.getElementById('adminPassword');
+  const error=document.getElementById('authError');
+  if(!input)return;
+  if(input.value===ADMIN_PASSWORD){
+    isAdmin=true;
+    try{sessionStorage.setItem(AUTH_SESSION_KEY,'1')}catch(e){}
+    if(error)error.textContent='';
+    input.value='';
+    closeAdminLogin();
+    updateAccessUI();
+    try{renderMenu(document.getElementById('search')?.value||'')}catch(e){}
+    try{renderDetail()}catch(e){}
+    try{renderAuditPlan()}catch(e){}
+    showToast('관리자 편집 모드로 전환했습니다.');
+  }else{
+    if(error)error.textContent='비밀번호가 일치하지 않습니다.';
+    input.select();
+  }
 }
 function logoutAdmin(){sessionStorage.removeItem(AUTH_SESSION_KEY);isAdmin=false;updateAccessUI();renderMenu(document.getElementById('search').value);renderDetail();showToast('일반 열람 모드로 전환했습니다.');}
 function showToast(msg){const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.classList.add('show');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.remove('show'),2200)}
@@ -4413,8 +4503,8 @@ function keywordBoost(text,id){const t=String(text||'').toLowerCase();const map=
 'P7':['고객','클레임','8d','반품','ntf','서비스','score card','만족']};
 return (map[id]||[]).reduce((a,k)=>a+(t.includes(k)?3:0),0)}
 function analyzeFinding(text){const input=normTokens(text);const rows=allClauseOptions().map(o=>{const c=o.clause;const title=normTokens(`${c.id} ${c.navTitle||''} ${c.title||''}`);const minimum=normTokens((c.minimum||[]).join(' '));const examples=normTokens((c.examples||[]).join(' '));const questions=normTokens((c.questions||[]).join(' '));let score=0;input.forEach(tok=>{if(title.some(x=>x.includes(tok)||tok.includes(x)))score+=6;if(minimum.some(x=>x.includes(tok)||tok.includes(x)))score+=4;if(examples.some(x=>x.includes(tok)||tok.includes(x)))score+=2;if(questions.some(x=>x.includes(tok)||tok.includes(x)))score+=1});score+=keywordBoost(text,o.moduleId);return {...o,score}}).sort((a,b)=>b.score-a.score);let top=rows.filter(x=>x.score>0).slice(0,3);if(!top.length)top=rows.slice(0,1);return top.map(x=>({moduleId:x.moduleId,clauseId:x.clauseId,label:x.label,score:x.score}))}
-function addFindingsFromQuick(){if(!isAdmin){showToast('관리자 로그인 후 지적사항을 추가할 수 있습니다.');return}const input=document.getElementById('findingQuickInput');const lines=input.value.split(/\n+/).map(x=>x.trim()).filter(Boolean);if(!lines.length){showToast('지적사항을 입력해 주세요.');return}lines.forEach(text=>{const matches=analyzeFinding(text);findings.push({id:'F'+Date.now()+Math.random().toString(16).slice(2),standard:(typeof activeStandard!=='undefined'?activeStandard:'VDA'),text,date:new Date().toISOString(),matches,selectedClause:matches[0]?.clauseId||'',selectedModule:matches[0]?.moduleId||'',schedule:'',correctiveAction:''})});input.value='';saveFindings();showToast(`${lines.length}건을 분석하여 추가했습니다.`)}
-function refreshAllFindings(){if(!isAdmin){showToast('관리자 로그인 후 재분석할 수 있습니다.');return}findings.forEach(f=>{f.matches=analyzeFinding(f.text);if(!f.selectedClause){f.selectedClause=f.matches[0]?.clauseId||'';f.selectedModule=f.matches[0]?.moduleId||''}});saveFindings();showToast('전체 지적사항을 다시 분석했습니다.')}
+function addFindingsFromQuick(){const input=document.getElementById('findingQuickInput');const lines=input.value.split(/\n+/).map(x=>x.trim()).filter(Boolean);if(!lines.length){showToast('지적사항을 입력해 주세요.');return}lines.forEach(text=>{const matches=analyzeFinding(text);findings.push({id:'F'+Date.now()+Math.random().toString(16).slice(2),standard:(typeof activeStandard!=='undefined'?activeStandard:'VDA'),text,date:new Date().toISOString(),matches,selectedClause:matches[0]?.clauseId||'',selectedModule:matches[0]?.moduleId||'',schedule:'',correctiveAction:''})});input.value='';saveFindings();showToast(`${lines.length}건을 분석하여 추가했습니다.`)}
+function refreshAllFindings(){findings.forEach(f=>{f.matches=analyzeFinding(f.text);if(!f.selectedClause){f.selectedClause=f.matches[0]?.clauseId||'';f.selectedModule=f.matches[0]?.moduleId||''}});saveFindings();showToast('전체 지적사항을 다시 분석했습니다.')}
 function renderFindingSidebar(){const count=document.getElementById('findingCount'),root=document.getElementById('findingMiniList');if(!count||!root)return;count.textContent=findings.length;root.innerHTML='';findings.slice(-5).reverse().forEach(f=>{const d=document.createElement('div');d.className='finding-mini';d.innerHTML=`<b>${escapeHtml(f.selectedClause||'미분류')}</b> ${escapeHtml(f.text.length>46?f.text.slice(0,46)+'…':f.text)}`;d.onclick=()=>{openFindingModal();setTimeout(()=>{const row=document.querySelector(`[data-finding-id="${CSS.escape(f.id)}"]`);if(row)row.scrollIntoView({block:'center'})},0)};root.appendChild(d)});if(!findings.length)root.innerHTML='<div class="finding-mini" style="color:#b8c7da">등록된 지적사항이 없습니다.</div>'}
 function clauseSelectHtml(f){return allClauseOptions().map(o=>`<option value="${escapeHtml(o.moduleId+'|'+o.clauseId)}" ${f.selectedClause===o.clauseId&&f.selectedModule===o.moduleId?'selected':''}>${escapeHtml(o.label)}</option>`).join('')}
 function renderFindingTable(){
@@ -4427,12 +4517,12 @@ function renderFindingTable(){
     if(typeof f.correctiveAction!=='string')f.correctiveAction='';
     const tr=document.createElement('tr');tr.dataset.findingId=f.id;
     const chips=(f.matches||[]).map(m=>`<span class="match-chip" title="매칭점수 ${m.score}">${escapeHtml(m.label)}</span>`).join('')||'<span style="color:#94a3b8">추천 없음</span>';
-    const scheduleCell=isAdmin?`<input type="date" class="finding-schedule" value="${escapeHtml(f.schedule)}">`:`<div class="readonly-cell">${escapeHtml(f.schedule||'미입력')}</div>`;
-    const actionCell=isAdmin?`<textarea class="finding-action" placeholder="개선대책을 입력하세요">${escapeHtml(f.correctiveAction)}</textarea>`:`<div class="readonly-cell">${escapeHtml(f.correctiveAction||'미입력')}</div>`;
-    tr.innerHTML=`<td><input type="checkbox" class="finding-select" ${isAdmin?'':'disabled'}></td><td>${i+1}</td><td><div class="finding-text-view">${escapeHtml(f.text)}</div>${isAdmin?'<button type="button" class="iconbtn finding-edit" title="지적사항 수정">✎ 수정</button>':''}</td><td><select class="finding-clause-select" ${isAdmin?'':'disabled'}>${clauseSelectHtml(f)}</select></td><td>${chips}</td><td>${scheduleCell}</td><td>${actionCell}</td><td>${new Date(f.date).toLocaleDateString('ko-KR')}</td>`;
+    const scheduleCell=`<input type="date" class="finding-schedule" value="${escapeHtml(f.schedule)}">`;
+    const actionCell=`<textarea class="finding-action" placeholder="개선대책을 입력하세요">${escapeHtml(f.correctiveAction)}</textarea>`;
+    tr.innerHTML=`<td><input type="checkbox" class="finding-select" ${isAdmin?'':'disabled'}></td><td>${i+1}</td><td><div class="finding-text-view">${escapeHtml(f.text)}</div><button type="button" class="iconbtn finding-edit" title="지적사항 수정">✎ 수정</button></td><td><select class="finding-clause-select">${clauseSelectHtml(f)}</select></td><td>${chips}</td><td>${scheduleCell}</td><td>${actionCell}</td><td>${new Date(f.date).toLocaleDateString('ko-KR')}</td>`;
     body.appendChild(tr);
     const sel=tr.querySelector('.finding-clause-select');
-    sel.onchange=()=>{if(!isAdmin)return;const [mid,cid]=sel.value.split('|');f.selectedModule=mid;f.selectedClause=cid;saveFindings()};
+    sel.onchange=()=>{const [mid,cid]=sel.value.split('|');f.selectedModule=mid;f.selectedClause=cid;saveFindings()};
     const schedule=tr.querySelector('.finding-schedule');
     if(schedule)schedule.onchange=()=>{f.schedule=schedule.value;saveFindings()};
     const action=tr.querySelector('.finding-action');
@@ -4445,7 +4535,18 @@ function openFindingModal(){document.getElementById('findingModal').classList.ad
 function closeFindingModal(){document.getElementById('findingModal').classList.remove('show')}
 async function exportFindingsCSV(){try{const rows=[['No','지적사항','판정 모듈','판정 조항','조항명','추천 조항','매칭점수','일정','개선대책','등록일']];findings.forEach((f,i)=>{const opt=allClauseOptions().find(o=>o.moduleId===f.selectedModule&&o.clauseId===f.selectedClause);rows.push([i+1,f.text,f.selectedModule||'',f.selectedClause||'',opt?.label||'',(f.matches||[]).map(x=>x.label).join(' / '),(f.matches||[]).map(x=>x.score).join(' / '),f.schedule||'',f.correctiveAction||'',new Date(f.date).toLocaleString('ko-KR')])});const csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');if(typeof saveBlob==='function')await saveBlob(new Blob([csv],{type:'text/csv;charset=utf-8'}),'VDA63_지적사항_조항매칭_LIST.csv','지적사항 Excel CSV 파일',['.csv']);else{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='VDA63_지적사항_조항매칭_LIST.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}showToast('지적사항 LIST를 Excel용 CSV로 저장했습니다.')}catch(e){console.error(e);showToast('지적사항 Excel 저장 중 오류가 발생했습니다.') }}
 function deleteSelectedFindings(){if(!isAdmin)return;const ids=[...document.querySelectorAll('#findingTableBody tr')].filter(r=>r.querySelector('.finding-select')?.checked).map(r=>r.dataset.findingId);if(!ids.length){showToast('삭제할 지적사항을 선택해 주세요.');return}if(!confirm(`${ids.length}건의 지적사항을 삭제하시겠습니까?`))return;localStorage.setItem(FINDING_STORAGE+'_before_delete',JSON.stringify(findings));findings=findings.filter(f=>!ids.includes(f.id));saveFindings();showToast('선택한 지적사항을 삭제했습니다.')}
-function updateFindingAccess(){const side=document.getElementById('findingSide');if(!side)return;side.querySelectorAll('.write-control').forEach(el=>{el.disabled=!isAdmin;el.classList.toggle('finding-readonly',!isAdmin)});renderFindingTable()}
+function updateFindingAccess(){
+  const side=document.getElementById('findingSide');
+  if(side){
+    side.querySelectorAll('.write-control').forEach(el=>{
+      el.disabled=false;
+      el.classList.remove('finding-readonly','is-locked');
+    });
+  }
+  const del=document.getElementById('findingDeleteSelected');
+  if(del)del.style.display=isAdmin?'':'none';
+  renderFindingTable();
+}
 const _origUpdateAccessUI=updateAccessUI;updateAccessUI=function(){_origUpdateAccessUI();updateFindingAccess()};
 document.getElementById('findingOpenInputBtn').onclick=openFindingModal;document.getElementById('findingAnalyzeBtn').onclick=openFindingModal;document.getElementById('findingRefreshBtn').onclick=refreshAllFindings;document.getElementById('findingManageBtn').onclick=openFindingModal;document.getElementById('findingExcelBtn').onclick=exportFindingsCSV;document.getElementById('findingModalClose').onclick=closeFindingModal;document.getElementById('findingModalAdd').onclick=addFindingsFromQuick;document.getElementById('findingModalRefresh').onclick=refreshAllFindings;document.getElementById('findingModalExcel').onclick=exportFindingsCSV;document.getElementById('findingDeleteSelected').onclick=deleteSelectedFindings;document.getElementById('findingCheckAll').onchange=e=>document.querySelectorAll('.finding-select').forEach(x=>{if(!x.disabled)x.checked=e.target.checked});document.getElementById('findingModal').onclick=e=>{if(e.target.id==='findingModal')closeFindingModal()};
 renderFindingSidebar();updateFindingAccess();
@@ -7807,6 +7908,373 @@ function syncStandardButtons(){
   }catch(e){}
 }
 window.addEventListener('DOMContentLoaded', function(){ setTimeout(syncStandardButtons,0); });
+</script>
+
+
+
+<script id="duringAccessSearchFixV3">
+(function(){
+  const FIX_VERSION='2026-09-07_ACCESS_SEARCH_V3';
+  function el(id){return document.getElementById(id)}
+  function normalize(v){return String(v||'').toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim()}
+  function tokens(q){
+    const stop=new Set(['대한','관련','기준','수립','되어','있다','없다','하지','않다','하는','경우','관리','사항','문제','확인','the','and','for','with']);
+    return normalize(q).split(/\s+/).filter(x=>x.length>=2&&!stop.has(x));
+  }
+
+  window.openAdminLogin=function(){
+    const overlay=el('authOverlay'), error=el('authError'), input=el('adminPassword');
+    if(!overlay){alert('관리자 로그인 창을 찾지 못했습니다.');return;}
+    overlay.classList.remove('hidden-auth');
+    overlay.style.display='flex';
+    overlay.style.visibility='visible';
+    overlay.style.opacity='1';
+    if(error)error.textContent='';
+    if(input){
+      input.value='';
+      input.disabled=false;
+      setTimeout(()=>{try{input.focus()}catch(e){}},50);
+    }
+  };
+
+  window.closeAdminLogin=function(){
+    const overlay=el('authOverlay'), input=el('adminPassword');
+    if(overlay){overlay.classList.add('hidden-auth');overlay.style.display='none';}
+    if(input)input.value='';
+  };
+
+  window.loginAdmin=function(){
+    const input=el('adminPassword'), error=el('authError');
+    if(!input)return;
+    if(input.value===ADMIN_PASSWORD){
+      isAdmin=true;
+      try{sessionStorage.setItem(AUTH_SESSION_KEY,'1')}catch(e){}
+      if(error)error.textContent='';
+      closeAdminLogin();
+      try{updateAccessUI()}catch(e){}
+      try{renderMenu(el('search')?.value||'')}catch(e){}
+      try{renderDetail()}catch(e){}
+      try{renderAuditPlan()}catch(e){}
+      try{renderAuditClosure()}catch(e){}
+      showToast('관리자 편집 모드로 전환했습니다.');
+    }else{
+      if(error)error.textContent='비밀번호가 일치하지 않습니다.';
+      try{input.select()}catch(e){}
+    }
+  };
+
+  window.logoutAdmin=function(){
+    try{sessionStorage.removeItem(AUTH_SESSION_KEY)}catch(e){}
+    isAdmin=false;
+    try{updateAccessUI()}catch(e){}
+    try{renderMenu(el('search')?.value||'')}catch(e){}
+    try{renderDetail()}catch(e){}
+    try{renderAuditPlan()}catch(e){}
+    try{renderAuditClosure()}catch(e){}
+    showToast('일반 열람 모드로 전환했습니다.');
+  };
+
+  function rowsForStandard(std){
+    const rows=[];
+    if(std==='VDA'){
+      let data=[];
+      try{data=JSON.parse(localStorage.getItem(STORAGE)||'null')||DEFAULT_DATA||[]}catch(e){data=DEFAULT_DATA||[]}
+      data.forEach(m=>(m.clauses||[]).forEach(c=>rows.push({
+        std:'VDA',moduleId:m.id,clauseId:c.id,title:c.title||c.navTitle||'',
+        minimum:c.minimum||[],questions:c.vdaQuestionsV2||c.questions||[]
+      })));
+    }else{
+      let data=[];
+      try{data=JSON.parse(localStorage.getItem(IATF_STORAGE)||'null')||IATF_DEFAULT||[]}catch(e){data=IATF_DEFAULT||[]}
+      data.forEach(m=>(m.clauses||[]).forEach(c=>rows.push({
+        std:'IATF',moduleId:m.id,clauseId:c.id,title:c.title||c.navTitle||'',
+        minimum:c.minimum||[],questions:c.questionsV2||c.questions||[]
+      })));
+    }
+    return rows;
+  }
+
+  function doRequirementSearch(std){
+    const input=el('homeRequirementSearchInput'), root=el('homeRequirementSearchResults'), summary=el('homeRequirementSearchSummary');
+    if(!input||!root||!summary)return;
+    const q=input.value.trim();
+    if(!q){showToast('검색할 문제 또는 상황을 입력해 주세요.');input.focus();return;}
+
+    const tq=tokens(q), nq=normalize(q);
+    const boosts=[
+      ['비상',8],['계획',3],['교정',8],['측정',4],['추적',6],['변경',6],['교육',5],
+      ['공정능력',8],['특별특성',8],['고객',3],['공급',4],['보전',6],['설비',4],
+      ['문서',4],['부적합',6],['재작업',5],['검사',4],['심사',4],['리스크',5],['안전',5],
+      ['전공정',5],['평가',3],['주기',3]
+    ];
+
+    const hits=rowsForStandard(std).map(r=>{
+      const full=normalize(r.clauseId+' '+r.title+' '+(r.minimum||[]).join(' ')+' '+(r.questions||[]).join(' '));
+      let score=0;
+      tq.forEach(t=>{if(full.includes(t))score+=3});
+      if(nq.length>=4&&full.includes(nq))score+=18;
+      boosts.forEach(([k,b])=>{if(nq.includes(k)&&full.includes(k))score+=b});
+      return {...r,score};
+    }).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,10);
+
+    root.innerHTML='';
+    summary.style.display='block';
+    const label=std==='VDA'?'VDA 6.3':'IATF 16949';
+
+    if(!hits.length){
+      summary.innerHTML='<b>'+label+'에서 직접 매칭되는 조항을 찾지 못했습니다.</b><br>표현을 조금 더 구체적으로 입력해 보세요.';
+      return;
+    }
+
+    summary.innerHTML='<b>'+label+' 관련 요구사항 '+hits.length+'건을 찾았습니다.</b><br>아래 결과는 관련 조항 검색이며 자동 지적 판정은 아닙니다. 해당 요구사항이 적용되는데 기준·절차·증빙 또는 실제 이행이 없다면 지적 가능성이 있으므로 객관적 증거를 확인한 후 최종 판정하십시오.';
+
+    hits.forEach(r=>{
+      const box=document.createElement('div');
+      box.className='req-search-hit';
+      const req=(r.minimum||[])[0]||'등록된 최소 요구사항을 해당 조항 화면에서 확인해 주세요.';
+      box.innerHTML=
+        '<div class="req-search-hit-head"><div><span class="req-search-standard">'+
+        (r.std==='VDA'?'VDA 6.3':'IATF 16949')+
+        '</span><span class="req-search-clause">'+escapeHtml(r.clauseId)+'</span></div>'+
+        '<span class="req-search-score">관련도 '+r.score+'</span></div>'+
+        '<div class="req-search-title">'+escapeHtml(r.title)+'</div>'+
+        '<div class="req-search-requirement">'+escapeHtml(req.length>520?req.slice(0,520)+'…':req)+'</div>'+
+        '<div style="margin-top:8px"><button class="btn req-open" type="button">해당 조항 열기</button></div>';
+      root.appendChild(box);
+
+      box.querySelector('.req-open').onclick=function(){
+        try{
+          if(typeof showGuideView==='function')showGuideView();
+          setStandard(r.std);
+          currentModule=r.moduleId;
+          currentClause=r.clauseId;
+          renderMenu();
+          renderDetail();
+          if(typeof syncStandardButtons==='function')syncStandardButtons();
+        }catch(e){
+          console.error(e);
+          showToast('해당 조항으로 이동하지 못했습니다.');
+        }
+      };
+    });
+  }
+
+  window.searchAuditRequirementVDA=function(){doRequirementSearch('VDA')};
+  window.searchAuditRequirementIATF=function(){doRequirementSearch('IATF')};
+
+  window.clearHomeRequirementSearch=function(){
+    const i=el('homeRequirementSearchInput'), r=el('homeRequirementSearchResults'), s=el('homeRequirementSearchSummary');
+    if(i)i.value='';
+    if(r)r.innerHTML='';
+    if(s){s.style.display='none';s.innerHTML='';}
+  };
+
+  function forcePublicFindingControls(){
+    ['findingOpenInputBtn','findingManageBtn','findingAnalyzeBtn','findingRefreshBtn','findingModalAdd','findingModalRefresh'].forEach(id=>{
+      const x=el(id);
+      if(x){
+        x.disabled=false;
+        x.classList.remove('admin-only','is-locked','finding-readonly');
+        x.style.display='';
+      }
+    });
+    document.querySelectorAll('#auditClosePane button').forEach(btn=>{
+      if((btn.textContent||'').includes('지적사항 추가')){
+        btn.classList.remove('admin-only','is-locked');
+        btn.disabled=false;
+        btn.style.display='';
+      }
+    });
+    const del=el('findingDeleteSelected');
+    if(del)del.style.display=isAdmin?'':'none';
+  }
+
+  const oldUpdate=window.updateAccessUI;
+  window.updateAccessUI=function(){
+    if(typeof oldUpdate==='function')oldUpdate();
+    forcePublicFindingControls();
+
+    const login=el('loginBtn'), logout=el('logoutBtn');
+    if(login)login.classList.toggle('hidden',isAdmin);
+    if(logout)logout.classList.toggle('hidden',!isAdmin);
+
+    const hlogin=el('homeLoginBtn'), hlogout=el('homeLogoutBtn');
+    if(hlogin)hlogin.classList.toggle('hidden',isAdmin);
+    if(hlogout)hlogout.classList.toggle('hidden',!isAdmin);
+
+    const homeChip=el('homeModeChip');
+    if(homeChip){
+      homeChip.textContent=isAdmin?'관리자 편집':'일반 열람';
+      homeChip.className=isAdmin?'admin-chip':'viewer-chip';
+    }
+  };
+
+  function bindEvents(){
+    const homeLogin=el('homeLoginBtn');
+    if(homeLogin){
+      homeLogin.disabled=false;
+      homeLogin.style.pointerEvents='auto';
+      homeLogin.onclick=function(e){e.preventDefault();e.stopPropagation();openAdminLogin();};
+    }
+    const guideLogin=el('loginBtn');
+    if(guideLogin){
+      guideLogin.disabled=false;
+      guideLogin.style.pointerEvents='auto';
+      guideLogin.onclick=function(e){e.preventDefault();e.stopPropagation();openAdminLogin();};
+    }
+
+    const pw=el('adminPassword');
+    if(pw){
+      pw.onkeydown=function(e){
+        if(e.key==='Enter'){e.preventDefault();loginAdmin();}
+        if(e.key==='Escape'){e.preventDefault();closeAdminLogin();}
+      };
+    }
+
+    const overlay=el('authOverlay');
+    if(overlay){
+      overlay.addEventListener('click',function(e){
+        if(e.target===overlay)closeAdminLogin();
+      });
+    }
+
+    const vb=el('homeRequirementSearchVdaBtn');
+    if(vb)vb.onclick=function(){searchAuditRequirementVDA();};
+    const ib=el('homeRequirementSearchIatfBtn');
+    if(ib)ib.onclick=function(){searchAuditRequirementIATF();};
+    const cb=el('homeRequirementSearchClearBtn');
+    if(cb)cb.onclick=clearHomeRequirementSearch;
+
+    forcePublicFindingControls();
+  }
+
+  window.__DURING_ACCESS_SEARCH_FIX__=FIX_VERSION;
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',function(){
+      bindEvents();
+      try{updateAccessUI()}catch(e){}
+    });
+  }else{
+    bindEvents();
+    try{updateAccessUI()}catch(e){}
+  }
+})();
+</script>
+
+
+
+<div id="globalAdminOverlay" class="global-admin-overlay" style="display:none" aria-hidden="true">
+  <div class="global-admin-card" role="dialog" aria-modal="true" aria-labelledby="globalAdminTitle">
+    <h2 id="globalAdminTitle">관리자 로그인</h2>
+    <p>VDA 6.3 / IATF 16949 조항 수정 및 내부시스템심사 계획 수정을 위해 관리자 비밀번호를 입력해 주세요.</p>
+    <input id="globalAdminPassword" type="password" autocomplete="current-password" placeholder="관리자 비밀번호">
+    <div id="globalAdminError" class="global-admin-error"></div>
+    <button id="globalAdminSubmit" class="btn primary" type="button" style="width:100%;margin-top:8px">관리자 접속</button>
+    <button id="globalAdminCancel" class="btn" type="button" style="width:100%;margin-top:8px">취소</button>
+  </div>
+</div>
+
+
+<script id="duringAdminClauseOpenFixV4">
+(function(){
+  function E(id){return document.getElementById(id)}
+
+  window.openAdminLogin=function(){
+    const ov=E('globalAdminOverlay'), pw=E('globalAdminPassword'), err=E('globalAdminError');
+    if(!ov){alert('관리자 로그인 창을 찾지 못했습니다.');return;}
+    if(err)err.textContent='';
+    if(pw){pw.value='';pw.disabled=false;}
+    ov.classList.add('open');
+    ov.style.display='flex';
+    ov.setAttribute('aria-hidden','false');
+    setTimeout(()=>{try{pw&&pw.focus()}catch(e){}},30);
+  };
+
+  window.closeAdminLogin=function(){
+    const ov=E('globalAdminOverlay'), pw=E('globalAdminPassword');
+    if(ov){ov.classList.remove('open');ov.style.display='none';ov.setAttribute('aria-hidden','true');}
+    if(pw)pw.value='';
+  };
+
+  window.loginAdmin=function(){
+    const pw=E('globalAdminPassword'), err=E('globalAdminError');
+    if(!pw)return;
+    if(pw.value===ADMIN_PASSWORD){
+      isAdmin=true;
+      try{sessionStorage.setItem(AUTH_SESSION_KEY,'1')}catch(e){}
+      if(err)err.textContent='';
+      closeAdminLogin();
+      try{updateAccessUI()}catch(e){console.error(e)}
+      try{renderMenu(E('search')?.value||'')}catch(e){}
+      try{renderDetail()}catch(e){}
+      try{renderAuditPlan()}catch(e){}
+      try{renderAuditClosure()}catch(e){}
+      showToast('관리자 편집 모드로 전환했습니다.');
+    }else{
+      if(err)err.textContent='비밀번호가 일치하지 않습니다.';
+      try{pw.select()}catch(e){}
+    }
+  };
+
+  // HOME 검색결과에서 해당 조항 열기: HOME 모드 해제 후 기준/조항 이동
+  window.openRequirementClauseFromHome=function(std,moduleId,clauseId){
+    try{
+      if(typeof leaveHomeView==='function')leaveHomeView();
+      else document.body.classList.remove('home-mode');
+
+      setStandard(std);
+      currentModule=moduleId;
+      currentClause=clauseId;
+      renderMenu();
+      renderDetail();
+      if(typeof syncStandardButtons==='function')syncStandardButtons();
+      window.scrollTo(0,0);
+      showToast((std==='VDA'?'VDA 6.3 ':'IATF 16949 ')+clauseId+' 조항으로 이동했습니다.');
+    }catch(e){
+      console.error('openRequirementClauseFromHome',e);
+      alert('해당 조항으로 이동하지 못했습니다.');
+    }
+  };
+
+  function rewireSearchResultButtons(){
+    const root=E('homeRequirementSearchResults');
+    if(!root)return;
+    root.querySelectorAll('.req-search-hit').forEach(box=>{
+      const btn=box.querySelector('.req-open');
+      if(!btn)return;
+      const std=(box.querySelector('.req-search-standard')?.textContent||'').includes('VDA')?'VDA':'IATF';
+      const clauseId=(box.querySelector('.req-search-clause')?.textContent||'').trim();
+      let moduleId='';
+      try{
+        const list=std==='VDA'?(JSON.parse(localStorage.getItem(STORAGE)||'null')||DEFAULT_DATA):(JSON.parse(localStorage.getItem(IATF_STORAGE)||'null')||IATF_DEFAULT);
+        const mod=(list||[]).find(m=>(m.clauses||[]).some(c=>c.id===clauseId));
+        moduleId=mod?.id||'';
+      }catch(e){}
+      btn.onclick=function(){openRequirementClauseFromHome(std,moduleId,clauseId)};
+    });
+  }
+
+  // 검색 함수 실행 후 생성된 결과 버튼을 다시 연결
+  const oldV=window.searchAuditRequirementVDA;
+  if(typeof oldV==='function')window.searchAuditRequirementVDA=function(){oldV();setTimeout(rewireSearchResultButtons,0)};
+  const oldI=window.searchAuditRequirementIATF;
+  if(typeof oldI==='function')window.searchAuditRequirementIATF=function(){oldI();setTimeout(rewireSearchResultButtons,0)};
+
+  function bind(){
+    const h=E('homeLoginBtn');
+    if(h){h.onclick=function(e){e.preventDefault();e.stopPropagation();openAdminLogin()};h.disabled=false;}
+    const g=E('loginBtn');
+    if(g){g.onclick=function(e){e.preventDefault();e.stopPropagation();openAdminLogin()};g.disabled=false;}
+    const submit=E('globalAdminSubmit'); if(submit)submit.onclick=loginAdmin;
+    const cancel=E('globalAdminCancel'); if(cancel)cancel.onclick=closeAdminLogin;
+    const pw=E('globalAdminPassword'); if(pw)pw.onkeydown=function(e){if(e.key==='Enter'){e.preventDefault();loginAdmin()}else if(e.key==='Escape'){e.preventDefault();closeAdminLogin()}};
+    const ov=E('globalAdminOverlay'); if(ov)ov.onclick=function(e){if(e.target===ov)closeAdminLogin()};
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind); else bind();
+  window.__DURING_ADMIN_CLAUSE_FIX__='V4';
+})();
 </script>
 
 </body></html>
